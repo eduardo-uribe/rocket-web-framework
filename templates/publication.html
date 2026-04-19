@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/styles.css" />
+        <link rel="stylesheet" href="../css/commenting-system.css" />
+        <title>{{page.title}}</title>
+    </head>
+    <body>
+        <main>
+            {% block content %}
+            <h1 class="title">{{ page.title }}</h1>
+            <p class="date">
+                Published: {{ page.date | date(format="%b %d, %Y") }}
+            </p>
+            {{ page.content | safe }} {% endblock content %}
+
+            <!-- Define dynamic endpoint via macro -->
+            {% if page.extra.thread %}
+            <!--{% set url = self::endpoint() %}-->
+
+            <!-- Query comments belonging to the provided thread -->
+            <!-- {#
+            {% set comments = load_data(url="https://commentingsystem.com/api/comments", format="json",
+            headers=["origin=https://eduardouribe.com"]) %}
+            #} -->
+            {% endif %} {% if page.extra.thread %}
+
+            <!-- Commenting System -->
+            <commenting-system data-thread-id="{{ page.extra.thread }}">
+                <section>
+                    <p>
+                        Comments &#8226; {% if comments %}{{ comments | length
+                        }} {% else %} 0 {% endif %}
+                    </p>
+
+                    <form>
+                        <label for="author">Author</label>
+                        <input
+                            type="text"
+                            name="author"
+                            id="author"
+                            value="Internet stranger"
+                        />
+
+                        <label for="comment">Comment</label>
+                        <textarea name="comment" id="comment"></textarea>
+
+                        <button>Submit</button>
+                    </form>
+
+                    <ul>
+                        {% if comments %} {{ self::thread(comments=comments) }}
+                        {% endif %}
+                    </ul>
+                </section>
+            </commenting-system>
+            {% endif %}
+        </main>
+        <script src="../javascript/commenting-system.js"></script>
+    </body>
+</html>
+
+<!-- --
+{% macro thread(comments) %} {% for comment in comments %}
+<li>
+    <article data-comment-id="{{comment.comment_id}}">
+        <div>
+            <p>{{ comment.comment_author}}</p>
+            <time>{{ comment.comment_date_created }}</time>
+        </div>
+        <p>{{ comment.comment_content }}</p>
+        <button data-reply-button>Reply</button>
+    </article>
+    <ul>
+        {% if comment.comment_replies | length > 0 %} {{
+        self::thread(comments=comment.comment_replies) }} {% endif %}
+    </ul>
+</li>
+{% endfor %} {% endmacro thread %}
+-->
+
+<!-- Macro that creates the dynamic endpoint -->
+<!--{% macro endpoint() %} http://127.0.0.1:8000/api/comments {% endmacro input %}-->
