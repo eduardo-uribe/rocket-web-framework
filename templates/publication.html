@@ -11,7 +11,6 @@
         <main>
             {% block content %}
             <h1>{{ page.title }}</h1>
-            <!--<p class="date">{{ page.date | date(format="%Y") }}</p>-->
             {{ page.content | safe }} {% endblock content %} {% if
             page.extra.thread %}
 
@@ -19,8 +18,7 @@
             {% set url = self::endpoint(thread_id = page.extra.thread) %}
 
             <!-- Query comments belonging to the provided thread -->
-            {% set comments = load_data(url=url, format="json",
-            headers=["origin=https://eduardouribe.com"]) %}
+            {% set comments = load_data(url=url, format="json") %}
 
             <!-- Commenting System -->
             <commenting-system data-thread-id="{{ page.extra.thread }}">
@@ -63,15 +61,15 @@
 <li>
     <article data-comment-id="{{comment.id}}">
         <div>
-            <p>{{ comment.author}}</p>
+            <p>{{comment.author}}</p>
             <time>{{ comment.date_created }}</time>
         </div>
-        <p>{{ comment.content }}</p>
+        <p>{{comment.content}}</p>
         <button data-reply-button>Reply</button>
     </article>
     <ul>
-        {% if comment.replies | length > 0 %} {{
-        self::thread(comments=comment.replies) }} {% endif %}
+        {% if comment.replies | length > 0 %}
+        {{self::thread(comments=comment.replies)}} {% endif %}
     </ul>
 </li>
 {% endfor %} {% endmacro thread %}
