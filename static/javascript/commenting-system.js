@@ -129,11 +129,6 @@ class CommentingSystem extends HTMLElement {
     return form;
   }
 
-  /**
-   * Create comment
-   * @param {*} param0
-   * @returns
-   */
   create_comment(comment) {
     let li = document.createElement("li");
     let article = document.createElement("article");

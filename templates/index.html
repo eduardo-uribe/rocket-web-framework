@@ -27,25 +27,18 @@
 
     <body>
         <main>
-            <div>
-                <h1 class="header">Learn the fundamentals of Rocket.rs</h1>
-                <p class="sub-header">A web framework for Rust</p>
-            </div>
+            <h1>
+                Learn the fundamentals of Rocket.rs
+                <span>a web framework for Rust</span>
+            </h1>
 
             {% block content %}
 
-            <h2 class="sub-title">Publications</h2>
-            <ul class="publications-list">
+            <h2>Writings</h2>
+            <ul>
                 {% for page in section.pages %}
-                <li class="publications-list-item">
-                    <a
-                        class="publications-list-link"
-                        href="{{ page.permalink | safe }}"
-                        >{{ page.title }}</a
-                    >
-                    <!--<p class="publications-list-date">
-                        {{ page.date | date(format="%m.%d.%y") }}
-                    </p>-->
+                <li>
+                    <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
                 </li>
                 {% endfor %}
             </ul>
