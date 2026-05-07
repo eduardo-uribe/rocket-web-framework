@@ -77,8 +77,6 @@
 {% endfor %} {% endmacro thread %}
 
 <!-- Macro that creates the dynamic endpoint -->
-        {% macro endpoint(thread_id) %}
-        https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro
-        input %}
-    </ul>
-</li>
+{% macro endpoint(thread_id) %}
+https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro
+endpoint %}
