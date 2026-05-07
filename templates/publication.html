@@ -67,11 +67,11 @@
         <button data-reply-button>Reply</button>
     </article>
     <ul>
-        {% if comment.replies | length > 0 %}
-        {{self::thread(comments=comment.replies)}} {% endif %}
+        <!--{% if comment.replies | length > 0 %}-->
+        <!--{{self::thread(comments=comment.replies)}} {% endif %}-->
     </ul>
 </li>
-{% endfor %} {% endmacro thread %}
+{% endfor %} { % endmacro thread %}
 
 <!-- Macro that creates the dynamic endpoint -->
 {% macro endpoint(thread_id) %}
