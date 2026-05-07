@@ -58,8 +58,7 @@
 
 <!-- Macro that creates the dynamic endpoint -->
 {% macro endpoint(thread_id) %}
-https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro
-endpoint %}
+https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro %}
 
 <!-- Macro that creates the comments thread -->
 {% macro thread(comments) %} {% for comment in comments %}
@@ -77,4 +76,4 @@ endpoint %}
         {{self::thread(comments=comment.replies)}} {% endif %}
     </ul>
 </li>
-{% endfor %} {% endmacro thread %}
+{% endfor %} {% endmacro %}
