@@ -1,25 +1,4 @@
-<!-- Macro that creates the dynamic endpoint -->
-{% macro endpoint(thread_id) %}
-https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro %}
-
-<!-- Macro that creates the comments thread -->
-{% macro thread(comments) %} {% for comment in comments %}
-<li>
-    <article data-comment-id="{{comment.id}}">
-        <div>
-            <p>{{comment.author}}</p>
-            <time>{{ comment.date_created }}</time>
-        </div>
-        <p>{{comment.content}}</p>
-        <button data-reply-button>Reply</button>
-    </article>
-    <ul>
-        {% if comment.replies | length > 0 %}
-        {{self::thread(comments=comment.replies)}} {% endif %}
-    </ul>
-</li>
-{% endfor %} {% endmacro %}
-
+{% import "macros.html" as macros %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -37,7 +16,7 @@ https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro %}
             page.extra.thread %}
 
             <!-- Dynamic url endpoint -->
-            {% set url = self::endpoint(thread_id = page.extra.thread) %}
+            {% set url = macros::endpoint(thread_id=page.extra.thread) | trim %}
 
             <!-- Query comments belonging to the provided thread -->
             {% set comments = load_data(url=url, format="json") %}
@@ -66,8 +45,8 @@ https://commentingsystem.com/api/threads/{{thread_id}}/comments {% endmacro %}
                     </form>
 
                     <ul>
-                        {% if comments %} {{ self::thread(comments=comments) }}
-                        {% endif %}
+                        {% if comments %} {{ macros::thread(comments=comments)
+                        }} {% endif %}
                     </ul>
                 </section>
             </commenting-system>
